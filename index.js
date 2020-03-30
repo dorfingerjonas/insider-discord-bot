@@ -13,6 +13,12 @@ client.on('message', (msg) => {
         });
     }
 
+    if (msg.author.id === '382251389675372556') {
+        msg.react('🇷🇺').then(() => {
+            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+        });
+    }
+
     if (msg.content.toLowerCase().includes('kebap') && !msg.author.bot) {
         msg.channel.send(`Herr Lehrer, das zählt nicht, <@${msg.author.id}> hat Kebap gesagt.`);
     }
