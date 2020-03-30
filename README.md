@@ -1,9 +1,9 @@
-# [BOT NAME]
-[BOT DESCRIPTION]
+# insider-discord-bot
+🎓 Insider Bot for class
 
 ## Invite the bot
 
-https://discordapp.com/oauth2/authorize?&client_id=[CLIENT ID]&scope=bot&permissions=[PERMISSIONS INTEGER]
+https://discordapp.com/oauth2/authorize?&client_id=694216688413180016&scope=bot&permissions=404544
 
 ## Usage of the bot
 
