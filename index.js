@@ -7,7 +7,11 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
-    console.log('message received')
+    if (msg.author.id === '268837493187543040') {
+        msg.react('👍').then(() => {
+            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+        });
+    }
 });
 
 client.login(token);
