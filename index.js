@@ -25,10 +25,17 @@ client.on('message', (msg) => {
         });
     }
 
+    if (msg.author.id === '305083169831649280') {
+        msg.react('694126988096569416').then(() => {
+            msg.react('694126988205752401').then(() => {
+                console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            });
+        });
+    }
+
     if (msg.content.toLowerCase().includes('kebap') && !msg.author.bot) {
         msg.channel.send(`Herr Lehrer, das zählt nicht, <@${msg.author.id}> hat Kebap gesagt.`);
     }
-// <:anti:694126988096569416>
 });
 
 client.login(token);
