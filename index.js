@@ -25,7 +25,7 @@ client.on('message', (msg) => {
         });
     }
 
-    if (msg.author.id === '305083169831649280') {
+    if (msg.author.id === '304657201853628431') {
         msg.react('694126988096569416').then(() => {
             msg.react('694126988205752401').then(() => {
                 console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
