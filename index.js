@@ -36,6 +36,10 @@ client.on('message', (msg) => {
     if (msg.content.toLowerCase().includes('kebap') && !msg.author.bot) {
         msg.channel.send(`Herr Lehrer, das zählt nicht, <@${msg.author.id}> hat Kebap gesagt.`);
     }
+
+    if (msg.content.toLowerCase().includes('printf') && !msg.author.bot) {
+        msg.channel.send(`Herr Lehrer, was ist printf?`);
+    }
 });
 
 client.login(token);
