@@ -42,16 +42,19 @@ client.on('message', (msg) => {
     }
 });
 
-
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-    if (newMember.channel.id === '687627580295348235' && newMember.member.user.id === '221695439160737792') {
-        newMember.guild.channels.cache
-            .get('690485778337366060')
-            .send('https://tenor.com/view/applausi-collettivi-standing-obation-clap-applause-gif-14346895');
+    if (newMember.channel !== null && newMember.member !== null) {
+        if (newMember.member.user !== null) {
+            if (newMember.channel.id === '687627580295348235' && newMember.member.user.id === '221695439160737792') {
+                newMember.guild.channels.cache
+                    .get('690485778337366060')
+                    .send('https://tenor.com/view/applausi-collettivi-standing-obation-clap-applause-gif-14346895');
 
-        newMember.guild.channels.cache
-            .get('690485778337366060')
-            .send(`<@${221695439160737792}>`);
+                newMember.guild.channels.cache
+                    .get('690485778337366060')
+                    .send(`<@${221695439160737792}>`);
+            }
+        }
     }
 });
 
