@@ -5,12 +5,6 @@
 
 https://discordapp.com/oauth2/authorize?&client_id=694216688413180016&scope=bot&permissions=404544
 
-## Usage of the bot
-
-### Commands
-
-- ``[COMMAND]`` [WHAT DOES THIS COMMAND]
-
 ## Developers
 
 If you want to run the bot yourself, [create a new Discord Bot](https://discordapp.com/developers/docs/intro#bots-and-apps) and copy the token into a file called `auth.json`. It should look like this:
