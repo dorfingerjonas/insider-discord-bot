@@ -47,21 +47,21 @@ client.on('message', (msg) => {
     if (msg.content.toLowerCase().includes('printf') && !msg.author.bot) {
         msg.channel.send(`Herr Lehrer, was ist printf?`);
     }
+});
 
-    client.on('messageReactionAdd', (msg, user) => {
-        const emojis = require('./emojis').emojis;
-        const {emoji} = msg;
+client.on('messageReactionAdd', (msg, user) => {
+    const emojis = require('./emojis').emojis;
+    const {emoji} = msg;
 
-        if (!emojis.includes(emoji.name)) {
-            emojis.push(emoji.name);
+    if (!emojis.includes(emoji.name)) {
+        emojis.push(emoji.name);
 
-            fs.writeFile('emojis.json', `{\n "emojis": \n${JSON.stringify(emojis)}\n}`, err => {
-                if (err) {
-                    console.error(err.message);
-                }
-            });
-        }
-    });
+        fs.writeFile('emojis.json', `{\n "emojis": \n${JSON.stringify(emojis)}\n}`, err => {
+            if (err) {
+                console.error(err.message);
+            }
+        });
+    }
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
