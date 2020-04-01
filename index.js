@@ -53,15 +53,21 @@ client.on('messageReactionAdd', (msg, user) => {
     const emojis = require('./emojis').emojis;
     const {emoji} = msg;
 
-    if (!emojis.includes(emoji.name)) {
-        emojis.push(emoji.name);
-
-        fs.writeFile('emojis.json', `{\n "emojis": \n${JSON.stringify(emojis)}\n}`, err => {
-            if (err) {
-                console.error(err.message);
-            }
-        });
+    if (emoji.id === null || emoji.id === undefined) {
+        if (!emojis.includes(emoji.name)) {
+            emojis.push(emoji.name);
+        }
+    } else {
+        if (!emojis.includes(emoji.id)) {
+            emojis.push(emoji.id);
+        }
     }
+
+    fs.writeFile('emojis.json', `{\n "emojis": \n${JSON.stringify(emojis)}\n}`, err => {
+        if (err) {
+            console.error(err.message);
+        }
+    });
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
