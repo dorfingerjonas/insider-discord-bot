@@ -32,6 +32,34 @@ client.on('message', (msg) => {
         });
     }
 
+    if (msg.author.id === '382248696349327360') {
+        msg.react('700594058749411358').then(() => {
+            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+        });
+    }
+
+    if (msg.author.id === '325002037932851212') {
+        msg.react('🇪🇸').then(() => {
+            msg.react('🇨').then(() => {
+                msg.react('🇦').then(() => {
+                    msg.react('🇷').then(() => {
+                        msg.react('🇱').then(() => {
+                            msg.react('🇴').then(() => {
+                                msg.react('🇸').then(() => {
+                                    console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+
+
+        });
+    }
+
     if (msg.author.id === '304657201853628431') {
         msg.react('694126988096569416').then(() => {
             msg.react('694126988205752401').then(() => {
