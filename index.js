@@ -53,10 +53,20 @@ client.on('message', (msg) => {
                     });
                 });
             });
+        });
+    }
 
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
-
-
+    if (msg.author.id === '623557754853785626') {
+        msg.react('🚙').then(() => {
+            msg.react('🇦').then(() => {
+                msg.react('🇺').then(() => {
+                    msg.react('🇹').then(() => {
+                        msg.react('🇴').then(() => {
+                                console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                        });
+                    });
+                });
+            });
         });
     }
 
@@ -98,21 +108,21 @@ client.on('messageReactionAdd', (msg, user) => {
     });
 });
 
-client.on('voiceStateUpdate', (oldMember, newMember) => {
-    if (newMember.channel !== null && newMember.member !== null) {
-        if (newMember.member.user !== null) {
-            if (newMember.channel.id === '687627580295348235' && newMember.member.user.id === '221695439160737792') {
-                newMember.guild.channels.cache
-                    .get('690485778337366060')
-                    .send('https://tenor.com/view/applausi-collettivi-standing-obation-clap-applause-gif-14346895');
-
-                newMember.guild.channels.cache
-                    .get('690485778337366060')
-                    .send(`<@${221695439160737792}>`);
-            }
-        }
-    }
-});
+// client.on('voiceStateUpdate', (oldMember, newMember) => {
+//     if (newMember.channel !== null && newMember.member !== null) {
+//         if (newMember.member.user !== null) {
+//             if (newMember.channel.id === '687627580295348235' && newMember.member.user.id === '221695439160737792') {
+//                 newMember.guild.channels.cache
+//                     .get('690485778337366060')
+//                     .send('https://tenor.com/view/applausi-collettivi-standing-obation-clap-applause-gif-14346895');
+//
+//                 newMember.guild.channels.cache
+//                     .get('690485778337366060')
+//                     .send(`<@${221695439160737792}>`);
+//             }
+//         }
+//     }
+// });
 
 function getRandomEmoji() {
     const emojis = require('./emojis').emojis;
