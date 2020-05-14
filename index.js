@@ -56,13 +56,21 @@ client.on('message', (msg) => {
         });
     }
 
+    if (msg.content.includes('Searching') && msg.content.includes('🔎')) {
+        msg.channel.send('guade scheibn 💿');
+    }
+
+    if (msg.content.startsWith('!playtop')) {
+        msg.channel.send(`<@${msg.author.id}>, du hurensohn!`);
+    }
+
     if (msg.author.id === '623557754853785626') {
         msg.react('🚙').then(() => {
             msg.react('🇦').then(() => {
                 msg.react('🇺').then(() => {
                     msg.react('🇹').then(() => {
                         msg.react('🇴').then(() => {
-                                console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
                         });
                     });
                 });
