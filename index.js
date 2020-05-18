@@ -114,7 +114,7 @@ client.on('messageReactionAdd', (msg, user) => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (newMember.channelID === '687627580295348235' && newMember.id === '221695439160737792') {
-        newMember.guild.channels.resolve('687257699972284437').send('https://media1.giphy.com/media/srg19CG0cKMuI/200.gif');
+        newMember.guild.channels.resolve('687257699972284437').send(getRandomGif);
     }
 });
 
@@ -122,6 +122,11 @@ function getRandomEmoji() {
     const emojis = require('./emojis').emojis;
 
     return emojis[Math.floor(Math.random() * emojis.length)];
+}
+function getRandomGif() {
+    const gifs = require('./gifs').gifs;
+
+    return gifs[Math.floor(Math.random() * gifs.length)];
 }
 
 client.login(token);
