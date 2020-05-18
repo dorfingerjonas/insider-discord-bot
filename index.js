@@ -60,19 +60,15 @@ client.on('message', (msg) => {
         msg.channel.send('guade scheibn 💿');
     }
 
-    if (msg.content.startsWith('!playtop')) {
+    if (msg.content.startsWith('-playtop')) {
         msg.channel.send(`<@${msg.author.id}>, du hurensohn!`);
     }
 
     if (msg.author.id === '623557754853785626') {
-        msg.react('🚙').then(() => {
-            msg.react('🇦').then(() => {
-                msg.react('🇺').then(() => {
-                    msg.react('🇹').then(() => {
-                        msg.react('🇴').then(() => {
-                            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
-                        });
-                    });
+        msg.react('🧍‍♂️').then(() => {
+            msg.react('💥').then(() => {
+                msg.react('🚙').then(() => {
+                    console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
                 });
             });
         });
@@ -117,7 +113,7 @@ client.on('messageReactionAdd', (msg, user) => {
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-    if (newMember.channelID === '687627580295348235' && newMember.id == '221695439160737792') {
+    if (newMember.channelID === '687627580295348235' && newMember.id === '221695439160737792') {
         newMember.guild.channels.resolve('687257699972284437').send('https://media1.giphy.com/media/srg19CG0cKMuI/200.gif');
     }
 });
