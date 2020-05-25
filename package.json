@@ -1,0 +1,23 @@
+{
+  "name": "insider-discord-bot",
+  "version": "1.0.0",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  },
+  "description": "Insider Bot for class",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorfingerjonas/insider-discord-bot.git"
+  },
+  "author": "Jonas Dorfinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dorfingerjonas/insider-discord-bot/issues"
+  },
+  "homepage": "https://github.com/dorfingerjonas/insider-discord-bot#readme"
+}
