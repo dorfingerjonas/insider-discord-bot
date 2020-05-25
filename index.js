@@ -89,6 +89,21 @@ client.on('message', (msg) => {
     if (msg.content.toLowerCase().includes('printf') && !msg.author.bot) {
         msg.channel.send(`Herr Lehrer, was ist printf?`);
     }
+
+    if (msg.channel.id === '714487263660343386') {
+        if (msg.content.toLowerCase().startsWith('!speaker')) {
+            const speakerRole = msg.guild.roles.cache.find(role => role.name === 'Speaker');
+            const hasPlayerSpeakerRole = msg.member.roles.cache.find(role => role.name === 'Speaker') !== undefined;
+
+            if (speakerRole !== undefined) {
+                hasPlayerSpeakerRole ? msg.member.roles.add(speakerRole) : msg.member.roles.remove(speakerRole);
+            }
+        } else {
+            msg.delete().then(() => {
+                console.log('message deleted');
+            });
+        }
+    }
 });
 
 client.on('messageReactionAdd', (msg, user) => {
@@ -123,6 +138,7 @@ function getRandomEmoji() {
 
     return emojis[Math.floor(Math.random() * emojis.length)];
 }
+
 function getRandomGif() {
     const gifs = require('./gifs').gifs;
 
