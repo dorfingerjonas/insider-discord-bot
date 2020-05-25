@@ -4,37 +4,37 @@ const token = require('./auth').token;
 const fs = require('fs');
 
 client.on('ready', () => {
-    console.log('Bot started...');
+    console.log(`Logged in as ${client.user.tag}`);
 });
 
 client.on('message', (msg) => {
     if (msg.author.id === '268837493187543040') {
         msg.react('👍').then(() => {
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            logSuccessMessage('reacted to message from', msg.author.username);
         });
     }
 
     if (msg.author.id === '382251389675372556') {
         msg.react('🇷🇺').then(() => {
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            logSuccessMessage('reacted to message from', msg.author.username);
         });
     }
 
     if (msg.author.id === '219585398618193920') {
         msg.react(getRandomEmoji()).then(() => {
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            logSuccessMessage('reacted to message from', msg.author.username);
         });
     }
 
     if (msg.author.id === '305083169831649280') {
         msg.react('689473770297098333').then(() => {
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            logSuccessMessage('reacted to message from', msg.author.username);
         });
     }
 
     if (msg.author.id === '382248696349327360') {
         msg.react('700594058749411358').then(() => {
-            console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+            logSuccessMessage('reacted to message from', msg.author.username);
         });
     }
 
@@ -46,7 +46,7 @@ client.on('message', (msg) => {
                         msg.react('🇱').then(() => {
                             msg.react('🇴').then(() => {
                                 msg.react('🇸').then(() => {
-                                    console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                                    logSuccessMessage('reacted to message from', msg.author.username);
                                 });
                             });
                         });
@@ -60,15 +60,11 @@ client.on('message', (msg) => {
         msg.channel.send('guade scheibn 💿');
     }
 
-    if (msg.content.startsWith('-playtop')) {
-        msg.channel.send(`<@${msg.author.id}>, du hurensohn!`);
-    }
-
     if (msg.author.id === '623557754853785626') {
         msg.react('🧍‍♂️').then(() => {
             msg.react('💥').then(() => {
                 msg.react('🚙').then(() => {
-                    console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                    logSuccessMessage('reacted to message from', msg.author.username);
                 });
             });
         });
@@ -77,7 +73,7 @@ client.on('message', (msg) => {
     if (msg.author.id === '304657201853628431') {
         msg.react('694126988096569416').then(() => {
             msg.react('694126988205752401').then(() => {
-                console.log(`reacted to message from ${msg.author.username} at ${new Date().toLocaleDateString()}`);
+                logSuccessMessage('reacted to message from', msg.author.username);
             });
         });
     }
@@ -96,7 +92,8 @@ client.on('message', (msg) => {
             const hasPlayerSpeakerRole = msg.member.roles.cache.find(role => role.name === 'Speaker') !== undefined;
 
             if (speakerRole !== undefined) {
-                hasPlayerSpeakerRole ? msg.member.roles.add(speakerRole) : msg.member.roles.remove(speakerRole);
+                hasPlayerSpeakerRole ? msg.member.roles.remove(speakerRole) : msg.member.roles.add(speakerRole);
+                logSuccessMessage('toggle speaker role for', msg.author.username);
             }
         } else {
             msg.delete().then(() => {
@@ -127,11 +124,11 @@ client.on('messageReactionAdd', (msg, user) => {
     });
 });
 
-client.on('voiceStateUpdate', (oldMember, newMember) => {
-    if (newMember.channelID === '687627580295348235' && newMember.id === '221695439160737792') {
-        newMember.guild.channels.resolve('687257699972284437').send(getRandomGif);
-    }
-});
+// client.on('voiceStateUpdate', (oldMember, newMember) => {
+//     if (newMember.channelID === '687627580295348235' && newMember.id === '221695439160737792') {
+//         newMember.guild.channels.resolve('687257699972284437').send(getRandomGif);
+//     }
+// });
 
 function getRandomEmoji() {
     const emojis = require('./emojis').emojis;
@@ -143,6 +140,10 @@ function getRandomGif() {
     const gifs = require('./gifs').gifs;
 
     return gifs[Math.floor(Math.random() * gifs.length)];
+}
+
+function logSuccessMessage(prefix, username) {
+    console.log(`${prefix} ${username} at ${new Date().toLocaleDateString()}`);
 }
 
 client.login(token);
