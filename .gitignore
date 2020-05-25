@@ -332,4 +332,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+auth.json
+
 # End of https://www.gitignore.io/api/node,linux,macos,windows,webstorm,jetbrains,visualstudiocode
