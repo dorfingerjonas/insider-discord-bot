@@ -87,7 +87,7 @@ client.on('message', (msg) => {
     }
 
     if (msg.channel.id === '714487263660343386') {
-        if (msg.content.toLowerCase().startsWith('!speaker')) {
+        if (msg.content.toLowerCase() === '!speaker') {
             const speakerRole = msg.guild.roles.cache.find(role => role.name === 'Speaker');
             const hasPlayerSpeakerRole = msg.member.roles.cache.find(role => role.name === 'Speaker') !== undefined;
 
