@@ -3,7 +3,7 @@
 
 ## Invite the bot
 
-https://discordapp.com/oauth2/authorize?&client_id=694216688413180016&scope=bot&permissions=404544
+https://discordapp.com/oauth2/authorize?&client_id=694216688413180016&scope=bot&permissions=268888128
 
 ## Developers
 
