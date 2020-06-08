@@ -62,9 +62,9 @@ client.on('message', (msg) => {
     }
 
     if (msg.author.id === '623557754853785626') {
-        msg.react('🧍‍♂️').then(() => {
-            msg.react('💥').then(() => {
-                msg.react('🚙').then(() => {
+        msg.react('🦵').then(() => {
+            msg.react('💻').then(() => {
+                msg.react('💥').then(() => {
                     logSuccessMessage('reacted to message from', msg.author.username);
                 });
             });
