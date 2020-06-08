@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const schedule = require('node-schedule');
 const client = new Discord.Client();
 const token = require('./auth').token;
 const fs = require('fs');
