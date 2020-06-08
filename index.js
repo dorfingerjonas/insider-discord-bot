@@ -131,6 +131,20 @@ client.on('messageReactionAdd', (msg, user) => {
 //     }
 // });
 
+const rule = new schedule.RecurrenceRule();
+rule.hour = 18;
+
+schedule.scheduleJob(rule, () => {
+    const role = client.guilds.cache.get('687252363446190080').roles.cache.find(role => role.name === 'Speaker');
+    const members = client.guilds.cache.get('687252363446190080').roles.cache.get('700632233995796541').members.array();
+
+    for (const member of members) {
+        member.roles.remove(role).then(() => {
+            logSuccessMessage('removed speaker role from', member.user.username);
+        });
+    }
+});
+
 function getRandomEmoji() {
     const emojis = require('./emojis').emojis;
 
