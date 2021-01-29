@@ -29,9 +29,10 @@ client.on('message', async msg => {
             if (msg.content.startsWith('!insider change')) {
                 const delay = parseInt(msg.content.replace('!insider change', '')) || 5;
                 const voiceChannel = client.channels.cache.array()[0];
-                const members = voiceChannel.guild.members.cache.array();
+                const members = voiceChannel.guild.members.cache.array()
+                    .filter(m => m.id !== '305083169831649280' && !m.user.bot);
                 const teacher = members.find(m => m.nickname.includes('Prof. '));
-                const newName = teacher ? teacher.nickname : 'Test';
+                const newName = teacher ? teacher.nickname : 'Schwammerl';
 
                 await fillDatabase(members);
                 changeAllUsernames(members, newName);
@@ -81,7 +82,9 @@ async function fillDatabase(members) {
 
 function changeAllUsernames(members, newUsername) {
     for (const member of members) {
-        member.setNickname(newUsername);
+        member.setNickname(newUsername).catch(err => {
+            console.error(err.message)
+        });
     }
 }
 
@@ -90,7 +93,9 @@ async function resetUsernames(members) {
         const old = await repo.findById(member.id);
 
         if (old) {
-            member.setNickname(old.username);
+            member.setNickname(old.username).catch(err => {
+                console.error(err.message)
+            });
         }
     }
 }
