@@ -2,134 +2,53 @@ const Discord = require('discord.js');
 const schedule = require('node-schedule');
 const client = new Discord.Client();
 const token = require('./auth').token;
-const fs = require('fs');
+const MemberRepository = require('./MemberRepository.js');
+const repo = new MemberRepository();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
-client.on('message', (msg) => {
-    if (msg.author.id === '268837493187543040') {
-        msg.react('👍').then(() => {
-            logSuccessMessage('reacted to message from', msg.author.username);
-        });
-    }
-
-    if (msg.author.id === '382251389675372556') {
-        msg.react('🇷🇺').then(() => {
-            logSuccessMessage('reacted to message from', msg.author.username);
-        });
-    }
-
-    if (msg.author.id === '219585398618193920') {
-        msg.react(getRandomEmoji()).then(() => {
-            logSuccessMessage('reacted to message from', msg.author.username);
-        });
-    }
-
-    if (msg.author.id === '305083169831649280') {
-        msg.react('689473770297098333').then(() => {
-            logSuccessMessage('reacted to message from', msg.author.username);
-        });
-    }
-
-    if (msg.author.id === '382248696349327360') {
-        msg.react('700594058749411358').then(() => {
-            logSuccessMessage('reacted to message from', msg.author.username);
-        });
-    }
-
-    if (msg.author.id === '325002037932851212') {
-        msg.react('🇪🇸').then(() => {
-            msg.react('🇨').then(() => {
-                msg.react('🇦').then(() => {
-                    msg.react('🇷').then(() => {
-                        msg.react('🇱').then(() => {
-                            msg.react('🇴').then(() => {
-                                msg.react('🇸').then(() => {
-                                    logSuccessMessage('reacted to message from', msg.author.username);
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    }
-
-    if (msg.content.includes('Searching') && msg.content.includes('🔎')) {
-        msg.channel.send('guade scheibn 💿');
-    }
-
-    if (msg.author.id === '623557754853785626') {
-        msg.react('🦵').then(() => {
-            msg.react('💻').then(() => {
-                msg.react('💥').then(() => {
-                    logSuccessMessage('reacted to message from', msg.author.username);
-                });
-            });
-        });
-    }
-
-    if (msg.author.id === '304657201853628431') {
-        msg.react('694126988096569416').then(() => {
-            msg.react('694126988205752401').then(() => {
-                logSuccessMessage('reacted to message from', msg.author.username);
-            });
-        });
-    }
-
-    if (msg.content.toLowerCase().includes('kebap') && !msg.author.bot) {
-        msg.channel.send(`Herr Lehrer, das zählt nicht, <@${msg.author.id}> hat Kebap gesagt.`);
-    }
-
-    if (msg.content.toLowerCase().includes('printf') && !msg.author.bot) {
-        msg.channel.send(`Herr Lehrer, was ist printf?`);
-    }
-
+client.on('message', async msg => {
     if (msg.channel.id === '714487263660343386') {
         if (msg.content.toLowerCase() === '!speaker') {
             const speakerRole = msg.guild.roles.cache.find(role => role.name === 'Speaker');
             const hasPlayerSpeakerRole = msg.member.roles.cache.find(role => role.name === 'Speaker') !== undefined;
 
-            if (speakerRole !== undefined) {
+            if (speakerRole) {
                 hasPlayerSpeakerRole ? msg.member.roles.remove(speakerRole) : msg.member.roles.add(speakerRole);
                 logSuccessMessage('toggle speaker role for', msg.author.username);
             }
         } else {
-            msg.delete().then(() => {
-                console.log('message deleted');
-            });
-        }
-    }
-});
-
-client.on('messageReactionAdd', (msg, user) => {
-    const emojis = require('./emojis').emojis;
-    const {emoji} = msg;
-
-    if (emoji.id === null || emoji.id === undefined) {
-        if (!emojis.includes(emoji.name)) {
-            emojis.push(emoji.name);
-        }
-    } else {
-        if (!emojis.includes(emoji.id)) {
-            emojis.push(emoji.id);
+            msg.delete();
         }
     }
 
-    fs.writeFile('emojis.json', `{\n "emojis": \n${JSON.stringify(emojis)}\n}`, err => {
-        if (err) {
-            console.error(err.message);
-        }
-    });
-});
+    if (msg.channel.id === '804732156042543155') {
+        if (!msg.author.bot) {
+            if (msg.content.startsWith('!insider change')) {
+                const delay = parseInt(msg.content.replace('!insider change', '')) || 5;
+                const voiceChannel = client.channels.cache.array()[0];
+                const members = voiceChannel.guild.members.cache.array();
+                const teacher = members.find(m => m.nickname.includes('Prof. '));
+                const newName = teacher ? teacher.nickname : 'Test';
 
-// client.on('voiceStateUpdate', (oldMember, newMember) => {
-//     if (newMember.channelID === '687627580295348235' && newMember.id === '221695439160737792') {
-//         newMember.guild.channels.resolve('687257699972284437').send(getRandomGif);
-//     }
-// });
+                await fillDatabase(members);
+                changeAllUsernames(members, newName);
+
+                setTimeout(async () => {
+                    await resetUsernames(members);
+                }, delay * 1000);
+            } else {
+                msg.channel.send('Unknown command!');
+            }
+        }
+
+        setTimeout(() => {
+            msg.delete();
+        }, 5 * 1000);
+    }
+});
 
 const rule = new schedule.RecurrenceRule();
 rule.hour = 18;
@@ -145,20 +64,35 @@ schedule.scheduleJob(rule, () => {
     }
 });
 
-function getRandomEmoji() {
-    const emojis = require('./emojis').emojis;
-
-    return emojis[Math.floor(Math.random() * emojis.length)];
-}
-
-function getRandomGif() {
-    const gifs = require('./gifs').gifs;
-
-    return gifs[Math.floor(Math.random() * gifs.length)];
-}
-
 function logSuccessMessage(prefix, username) {
     console.log(`${prefix} ${username} at ${new Date().toLocaleDateString()}`);
+}
+
+async function fillDatabase(members) {
+    await repo.deleteAll();
+
+    for (const member of members) {
+        await repo.add({
+            username: member.nickname,
+            id: member.id
+        });
+    }
+}
+
+function changeAllUsernames(members, newUsername) {
+    for (const member of members) {
+        member.setNickname(newUsername);
+    }
+}
+
+async function resetUsernames(members) {
+    for (const member of members) {
+        const old = await repo.findById(member.id);
+
+        if (old) {
+            member.setNickname(old.username);
+        }
+    }
 }
 
 client.login(token);
